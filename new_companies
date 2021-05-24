@@ -1,0 +1,13 @@
+SELECT c.company_code, c.founder, COUNT(l.lead_manager_code), COUNT(s.senior_manager_code),
+COUNT(m.manager_code), COUNT(e.employee_code)
+FROM company c
+INNER JOIN lead_manager l
+ON c.company_code = l.company_code
+INNER JOIN senior_manager s
+ON l.lead_manager_code = s.lead_manager_code
+INNER JOIN manager m
+ON s.senior_manager_code = m.senior_manager_code
+INNER JOIN employee e
+ON m.manager_code = e.manager_code
+GROUP BY c.company_code, c.founder
+ORDER BY  c.company_code ASC;
