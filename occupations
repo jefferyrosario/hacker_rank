@@ -1,0 +1,17 @@
+SELECT Actor FROM
+    (SELECT
+        (CASE WHEN occupation = 'Actor' THEN name ELSE NULL END) AS Actor,
+        (CASE WHEN occupation = 'Doctor' THEN name ELSE NULL END) AS Doctor,
+        (CASE WHEN occupation = 'Professor' THEN name ELSE NULL END) AS Professor,
+        (CASE WHEN occupation = 'Singer' THEN name ELSE NULL END) AS Singer
+    FROM occupations
+    GROUP BY Actor, Doctor, Professor, Singer) p
+    WHERE ACTOR IS NOT NULL)
+    INNER JOIN (SELECT
+        (CASE WHEN occupation = 'Actor' THEN name ELSE NULL END) AS Actor,
+        (CASE WHEN occupation = 'Doctor' THEN name ELSE NULL END) AS Doctor,
+        (CASE WHEN occupation = 'Professor' THEN name ELSE NULL END) AS Professor,
+        (CASE WHEN occupation = 'Singer' THEN name ELSE NULL END) AS Singer
+    FROM occupations
+    GROUP BY Actor, Doctor, Professor, Singer) d
+    ON p.Doctor = d.Doctor
