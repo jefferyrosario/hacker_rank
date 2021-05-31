@@ -1,0 +1,7 @@
+SELECT ROUND(long_w,4) FROM
+(SELECT long_w, MAX(lat_n)
+FROM station
+WHERE lat_n < 137.2345
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 1) lon;
